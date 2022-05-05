@@ -3,7 +3,7 @@ const dateFormat = require('../utils/dateFormat');
 
 const UserSchema = new Schema(
   {
-   
+
     username: {
       type: String,
       unique: true,
@@ -14,26 +14,39 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       required: 'Please enter the email',
-      unique: true
+      match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
     },
-   thoughts: [{
-      type: String,
-     
+    thoughts: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Thought'
+
+    }],
+
+    friends: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     }],
     createdAt: {
       type: Date,
       default: Date.now,
       get: createdAtVal => dateFormat(createdAtVal)
-    }
+    },
+
   },
   {
     toJSON: {
+      virtuals: true,
       getters: true
-    }
+    },
+    id: false
   }
 );
 
-//   
+UserSchema.virtual('friendsCount').get(function () {
+  return this.friends.length;
+})
+
+
 
 const User = model('User', UserSchema);
 
