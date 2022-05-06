@@ -1,5 +1,4 @@
 const { Schema, model, Types } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
 
 const UserSchema = new Schema(
   {
@@ -26,12 +25,7 @@ const UserSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     }],
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: createdAtVal => dateFormat(createdAtVal)
-    },
-
+    
   },
   {
     toJSON: {
@@ -45,8 +39,6 @@ const UserSchema = new Schema(
 UserSchema.virtual('friendsCount').get(function () {
   return this.friends.length;
 })
-
-
 
 const User = model('User', UserSchema);
 
