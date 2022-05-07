@@ -9,22 +9,24 @@ const
         deleteReaction,
     } = require('../../controllers/thought-controller');
 
-// get all thoughts
-
-router.route('/').get(getAllThought);
 // all routes related to thoughts
 router
+    .route('/')
+    .get(getAllThought)
+    .post(createThought);
+
+    // all routes that need id
+    router
     .route('/:id')
     .get(getThoughtById)
-    .put(updateThought)
+    .put( updateThought)
     .delete(deleteThought);
 
-// create one thought
-router.route('/userId').post(createThought)
-
 // add reaction
-router.route('/:thoughtId/reactions').post(addReaction)
+router.route('/:thoughtId/reactions')
+.post(addReaction)
 
-router.route('/:thoughtId/reactions/:reactionId').delete(deleteReaction)
+router.route('/:thoughtId/reactions/:reactionId')
+.delete(deleteReaction)
 
 module.exports = router;
