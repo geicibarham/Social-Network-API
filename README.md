@@ -1,4 +1,7 @@
 # Social-Network-API
+## Licensing
+
+[![license](https://img.shields.io/badge/license-MIT-success)](https://opensource.org/licenses/MIT)
 
 ## User Story
 AS A social media startup
